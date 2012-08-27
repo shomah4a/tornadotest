@@ -70,4 +70,34 @@ class YesHandler(websocket.WebSocketHandler):
         print 'close'
 
         msgthread.remove_handler(self)
+
+
+
+import pprint
         
+
+class PrintHandler(web.RequestHandler):
+
+    def get(self, *args, **argd):
+        u'''
+        :param *args: URL マッピング時の名前なしグルーピング
+        :param **argd: URL マッピング時の名前付きグルーピング
+
+        レスポンスボディは self.write で書き込んでやる。
+        '''
+
+        # レスポンスヘッダを弄る
+        self.set_header('Content-Type', 'text/plain;charset=utf-8')
+
+        print >> self, args, argd
+
+        # URL パラメータから値を一個取る
+        print >> self, self.get_argument('aaa')
+
+        # URL パラメータから値を全部取る
+        print >> self, self.get_arguments('aaa')
+
+        # self.request がリクエストオブジェクト
+        # リクエストオブジェクトの arguments にパラメータが辞書で入っている
+        pprint.pprint(self.request.arguments, stream=self)
+

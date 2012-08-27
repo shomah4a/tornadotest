@@ -27,6 +27,7 @@ def main(args):
             ('/', serve.MainHandler),
             ('/websock', serve.OnWebsock),
             ('/yes', serve.YesHandler),
+            ('/print/(?P<aaa>.*)', serve.PrintHandler),
             ])
     app.listen(8000)
     ioloop.IOLoop.instance().start()
